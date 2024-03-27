@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+valid:
+  name: Dystopia
+  alpha_2_code: DY
+  alpha_3_code: DYS
+  currency: DYD
+
+invalid:
+  name: MyString
+  alpha_2_code: MyString
+  alpha_3_code: MyString
+  currency: MyString
