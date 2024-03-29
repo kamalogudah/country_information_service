@@ -1,0 +1,33 @@
+<h1>Country</h1>
+
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Alpha 2 Code</th>
+      <th scope="col">Alpha 3 Code</th>
+      <th scope="col">Currency</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+   <% @countries.each do |country| %>
+    <tr>
+
+      <td><%= country.name %></th>
+      <td><%= country.alpha_2_code %></td>
+      <td> <%= country.alpha_3_code %></td>
+      <td>  <%= country.currency %></td>
+      <td>
+      <%= link_to "Edit", edit_country_path(country) %>
+      <%= link_to "Soft Delete", country_path(country), data: {
+                    turbo_method: :delete,
+                    turbo_confirm: "Are you sure?"
+                  } %>
+      </td>
+    </tr>
+      <% end %>
+
+  </tbody>
+</table>
