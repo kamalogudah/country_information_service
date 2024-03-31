@@ -2,14 +2,16 @@ module Api
   module V1
     class CountriesController < ApplicationController
       before_action :set_country, only: %i[ show destroy ]
-      api :GET, "/countries", "List Countries"
-      api :GET, "/countries?currency=value", "Filter Countries by their currency"
+      api :GET, "/v1/countries", "List Countries"
+      api :GET, "/v1/countries?currency=value", "Filter Countries by their currency"
       error :code => 401, :desc => "Unauthorized"
       error :code => 404, :desc => "Not Found", :meta => {:anything => "you can think of"}
 
       def index
-        @countries = Country.all
+        @countries = Country.where(soft_deleted_at: nil)
+
         @countries = @countries.where('currency LIKE ?', "%#{params[:currency]}%") if params[:currency]
+
         if @countries
           render json: {status: "SUCCESS", message: "Fetched all the countries successfully", data: @countries}, status: :ok
         else
@@ -30,13 +32,14 @@ module Api
       end
 
       def destroy
+
         @country.soft_delete
       end
 
       private
 
       def set_country
-        @country = Country.where('alpha_2_code = ? or alpha_3_code = ?', params[:id], params[:id]).first
+        @country = Country.where('alpha_2_code = ? or alpha_3_code = ? or id = ?', params[:id], params[:id], params[:id]).first
       end
     end
   end

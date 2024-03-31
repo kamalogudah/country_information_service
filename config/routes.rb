@@ -14,4 +14,6 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "home#index"
   get 'admin/index'
+  post 'restore_record/create'
+  post 'soft_delete_record/create'
 end

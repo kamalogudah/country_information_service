@@ -1,6 +1,4 @@
 <h1>Country</h1>
-
-
 <table class="table">
   <thead>
     <tr>
@@ -12,22 +10,25 @@
     </tr>
   </thead>
   <tbody>
-   <% @countries.each do |country| %>
-    <tr>
-
-      <td><%= country.name %></th>
-      <td><%= country.alpha_2_code %></td>
-      <td> <%= country.alpha_3_code %></td>
-      <td>  <%= country.currency %></td>
-      <td>
-      <%= link_to "Edit", edit_country_path(country) %>
-      <%= link_to "Soft Delete", country_path(country), data: {
-                    turbo_method: :delete,
-                    turbo_confirm: "Are you sure?"
-                  } %>
-      </td>
-    </tr>
-      <% end %>
-
+    <% @countries.each do |country| %>
+      <tr>
+        <td><%= country.name %></th>
+        <td><%= country.alpha_2_code %></td>
+        <td> <%= country.alpha_3_code %></td>
+        <td>  <%= country.currency %></td>
+        <td>
+          <% if country.soft_deleted_at.nil? %>
+            <%= button_to "Soft Delete Record", soft_delete_record_create_path(id: country.id) %>
+          <% else %>
+            <%= button_to "Restore Record", restore_record_create_path(id: country.id) %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
   </tbody>
 </table>
+<% if @all_records %>
+  <%= link_to "View only Undiscarded Records", admin_index_path%>
+<% else %>
+  <%= link_to "View all including Discarded Records", admin_index_path(state: "all records")%>
+<% end %>
