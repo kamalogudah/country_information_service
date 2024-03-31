@@ -32,4 +32,11 @@ class CountryTest < ActiveSupport::TestCase
     refute country.valid?, 'country is invalid without a currency '
     assert_not_nil country.errors[:currency], 'no validation error for currency present'
   end
+
+  test 'a country is soft deleted' do
+    country = countries(:valid)
+    id = country.id
+    country.destroy
+    assert Country.find(id)
+  end
 end

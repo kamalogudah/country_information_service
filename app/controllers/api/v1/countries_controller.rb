@@ -1,7 +1,7 @@
 module Api
   module V1
     class CountriesController < ApplicationController
-      before_action :set_country, only: %i[ show ]
+      before_action :set_country, only: %i[ show destroy ]
       api :GET, "/countries", "List Countries"
       api :GET, "/countries?currency=value", "Filter Countries by their currency"
       error :code => 401, :desc => "Unauthorized"
@@ -27,6 +27,10 @@ module Api
         else
           render json: {status: "Failure", code: 404,  message: "Record not found", data: @country}, status: :not_found
         end
+      end
+
+      def destroy
+        @country.soft_delete
       end
 
       private
