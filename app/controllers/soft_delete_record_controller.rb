@@ -1,5 +1,6 @@
 class SoftDeleteRecordController < ApplicationController
   def create
+
     @record = Country.find(params[:id])
     @record.soft_deleted_at = Time.now
     if @record.save

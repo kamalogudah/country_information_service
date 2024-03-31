@@ -4,8 +4,8 @@ module Api
       before_action :set_country, only: %i[ show destroy ]
       api :GET, "/v1/countries", "List Countries"
       api :GET, "/v1/countries?currency=value", "Filter Countries by their currency"
-      error :code => 401, :desc => "Unauthorized"
-      error :code => 404, :desc => "Not Found", :meta => {:anything => "you can think of"}
+      param :currency, String, :desc => "Country currency ", :required => false
+      error :code => 404, :desc => "Not Found", :meta => {:reason => "record not found"}
 
       def index
         @countries = Country.where(soft_deleted_at: nil)
@@ -32,7 +32,6 @@ module Api
       end
 
       def destroy
-
         @country.soft_delete
       end
 

@@ -6,8 +6,16 @@ valid:
   alpha_3_code: DYS
   currency: DYD
 
-invalid:
+valid_2:
+  name: Ruby World
+  alpha_2_code: MY
+  alpha_3_code: MYS
+  currency: MYD
+
+soft_deleted:
   name: MyString
   alpha_2_code: MyString
   alpha_3_code: MyString
   currency: MyString
+  soft_deleted_at: Sun, 31 Mar 2024 17:53:11.362989000 UTC +00:00
+
